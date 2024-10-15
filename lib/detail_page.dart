@@ -6,7 +6,7 @@ class DetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
+    var data = ModalRoute.of(context)?.settings.arguments as String;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -15,7 +15,7 @@ class DetailPage extends StatelessWidget {
           IconButton(onPressed: (){}, icon: Icon(Icons.share))
         ],
       ),
-      body: Text("Hallo") // This trailing comma makes auto-formatting nicer for build methods.
+      body: Text("Hallo $data") // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }

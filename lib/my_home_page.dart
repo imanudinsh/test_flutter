@@ -51,12 +51,9 @@ class _MyHomePageState extends State<MyHomePage> {
     // than having to individually change instances of widgets.
     return Scaffold(
       appBar: AppBar(
-        // TRY THIS: Try changing the color here to a specific color (to
-        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-        // change color while the other colors stay the same.
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
+        backgroundColor: Colors.blue,
+        elevation: 5,
+        shadowColor: Colors.grey,
         title: Text(widget.title),
         actions: [
           IconButton(onPressed: (){}, icon: Icon(Icons.share))
@@ -68,7 +65,8 @@ class _MyHomePageState extends State<MyHomePage> {
           itemBuilder: (ctx, i){
             return InkWell(
               onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (ctx) =>   DetailPage() ));
+                // Navigator.push(context, MaterialPageRoute(builder: (ctx) =>   DetailPage() ));
+                Navigator.pushNamed(context, "/detail", arguments: data[i]);
               },
               child: Container(
                 width: 500,
