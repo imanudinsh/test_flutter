@@ -1,6 +1,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -14,15 +15,23 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   var isObscure = true;
-  var items = ["Item 1", "Item 2", "Item 3", "Item 4"];
+  List<String> items = ["Item 1", "Item 2", "Item 3", "Item 4"];
   String? role;
+  late SharedPreferences prefs;
+
+  @override
+  void initState() {
+    initSharedPreferences();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-          title: Text("Login"),
+          title: const Text("Login"),
+          leading: null,
         ),
         body: Padding(
           padding: EdgeInsets.all(20),
@@ -70,10 +79,15 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(height: 30,),
 
                 MaterialButton(
-                  onPressed: (){
+                  onPressed: () async {
+                    await prefs.setString('username', usernameController.text);
+
+                    prefs.clear();
+                    String? username = prefs.getString('username');
+
                     ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
-                          content: Text("$role ${usernameController.text} ${passwordController.text}"),
+                          content: Text(" shared preferences $username"),
 
                         )
                     );
@@ -81,11 +95,27 @@ class _LoginPageState extends State<LoginPage> {
                   color: Colors.blue,
 
                   child: const Text("Login", style: TextStyle(color: Colors.white),),
+                ),
+
+                const SizedBox(
+                  height: 30
+                ),
+
+                InkWell(
+                  onTap: (){
+                    Navigator.pushNamed(context, "/register");
+                  },
+                  child: Text("Register"),
                 )
               ],
             ),
           ),
         )
     );
+  }
+
+  initSharedPreferences() async{
+    prefs = await SharedPreferences.getInstance();
+
   }
 }

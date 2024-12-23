@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:test_flutter/detail_page.dart';
-import 'package:test_flutter/login_page.dart';
-import 'package:test_flutter/my_home_page.dart';
+import 'package:test_flutter/page/detail_page.dart';
+import 'package:test_flutter/page/learning_dart_page.dart';
+import 'package:test_flutter/page/login_page.dart';
+import 'package:test_flutter/page/my_home_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:test_flutter/page/register_page.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  MyApp({super.key});
+
+
 
   // This widget is the root of your application.
   @override
@@ -39,6 +44,8 @@ class MyApp extends StatelessWidget {
         "/": (context) => MyHomePage(title: 'Flutter Demo'),
         "/detail": (context) => DetailPage(),
         "/login": (context) => LoginPage(),
+        "/register": (context) => RegisterPage(),
+        "/dart": (context) => LearningDartPage(),
       },
     );
   }
